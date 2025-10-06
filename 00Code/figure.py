@@ -1,12 +1,14 @@
 import matplotlib.pyplot as plt
 
 def center_distrubute(actual_center, theory_center):
+
+    
     avg_actual_y = sum(y for x, y in actual_center) / len(actual_center)
     avg_theory_y = sum(y for x, y in theory_center) / len(theory_center)
 
     avg_actual_x = sum(x for x, y in actual_center) / len(actual_center)
     avg_theory_x = sum(x for x, y in theory_center) / len(theory_center)
-
+    
     center_shift_x = avg_theory_x - avg_actual_x
     center_shift_y = avg_theory_y - avg_actual_y
 
@@ -30,7 +32,9 @@ def center_distrubute(actual_center, theory_center):
     plt.grid(True)
     plt.axis('equal')
     plt.gca().invert_yaxis()  # Reverse y-axis here
-    plt.savefig("/home/alex/Startrack/06Figure/center_ditribution(pix).png", dpi=300)
+    plt.savefig("/home/user/StartrackPC/06Figure/center_ditribution(pix).png", dpi=300)
+
+    return center_shift_x, center_shift_y
 
 
 def solve_time(solving_time):
@@ -48,7 +52,7 @@ def solve_time(solving_time):
     plt.xticks(indices)
     plt.legend()
     plt.grid(True, linestyle='--', alpha=0.5)
-    plt.savefig("/home/alex/Startrack/06Figure/solve_time.png", dpi=300)
+    plt.savefig("/home/user/StartrackPC/06Figure/solve_time.png", dpi=300)
 
 def earthloc_distrubute(actual_loc, lulin_loc, correct):
 
@@ -66,8 +70,8 @@ def earthloc_distrubute(actual_loc, lulin_loc, correct):
     plt.grid(True)
 
     if correct:
-        plt.savefig("/home/alex/Startrack/06Figure/solving_result(corrected).png", dpi=300)
+        plt.savefig("/home/user/StartrackPC/06Figure/solving_result(corrected).png", dpi=300)
     else:
-        plt.savefig("/home/alex/Startrack/06Figure/solving_result.png", dpi=300)
+        plt.savefig("/home/user/StartrackPC/06Figure/solving_result.png", dpi=300)
     
     

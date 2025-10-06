@@ -30,7 +30,7 @@ def find_UT_time(img):
     #s = re.sub(r'(?i)\bUT(?=\d)', 'UT ', s)                    # UT 後補空白
     s = re.sub(r'(\d{4})(?=\d{1,2}:\d{2}:\d{2})', r'\1 ', s)   # 年份後補空白
     s = re.sub(r'(?i)(\d)(?=[AP]M\b)', r'\1 ', s)              # 時間與 AM/PM 間補空白
-    print(s)  # UT 12/29/2024 9:19:03 PM
+    #print(s)  # UT 12/29/2024 9:19:03 PM
 
     return s
 

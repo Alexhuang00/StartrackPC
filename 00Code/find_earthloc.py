@@ -7,7 +7,7 @@ from Theory import gmst_time
 
 def zenithcoord(x, y, n):
 
-    hdulist = fits.open(f'/home/alex/Startrack/04.2 Wcs/cropped{n+1}.new')  # This should have the WCS solution
+    hdulist = fits.open(f'/home/user/StartrackPC/04.2 Wcs/cropped{n+1}.new')  # This should have the WCS solution
     w = WCS(hdulist[0].header)
 
     O_x = int(x)
@@ -17,6 +17,8 @@ def zenithcoord(x, y, n):
     rax, decx = w.wcs_pix2world(O_x+1, O_y, 1)
     ray, decy = w.wcs_pix2world(O_x, O_y+1, 1)
 
+    print(ra0, dec0)
+
     vec1ra = (rax - ra0)*(x-int(x))
     vec1dec = (decx - dec0)*(x-int(x))
 
@@ -24,25 +26,26 @@ def zenithcoord(x, y, n):
     vec2dec = (decy - dec0)*(y-int(y))
 
     zenith = (ra0+vec1ra+vec2ra, dec0+vec1dec+vec2dec)
+
+    print(f"zenith: {zenith}")
+
     return zenith
 
 def zenith_to_earth_location(x, y, n, ut_time):
     
+    print()
+    print(f"looking at ({x}, {y}) in corr{n+1}")
     gmst = gmst_time(ut_time)
     Ra, Dec = zenithcoord(x, y, n)
-
     
-
+    print(f"GMST:{gmst} hr")
 
     lat = Dec
 
     prelon = (Ra/15.0 - gmst) * 15 #+-360
 
-    if prelon <= -180:
-        lon = prelon + 360
-
-    elif prelon >= 180:
-        lon = prelon - 360
+    if prelon < 0:
+        lon = prelon+360
 
     else:
         lon = prelon

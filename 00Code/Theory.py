@@ -16,7 +16,7 @@ def ut_to_gmst(dt_utc):
     minute = dt_utc.minute
     second = dt_utc.second + dt_utc.microsecond/1e6
 
-    print(year, month, day, hour, minute, second)
+    #print(year, month, day, hour, minute, second)
     
     if month <= 2:
         year -= 1
@@ -57,7 +57,7 @@ def gmst_time(ut_time):
 
     suf = suf.strip().upper()
     
-    if suf == f"PM":
+    if suf == f"PM" or suf == f"PM.":
         time_part[0] = 12 + int(time_part[0])
     else:
         print("failed")
@@ -66,7 +66,7 @@ def gmst_time(ut_time):
     dt = datetime(int(date_part[2]), int(date_part[0]), int(date_part[1]), int(time_part[0]), int(time_part[1]), int(time_part[2]), tzinfo=timezone.utc)
     gmst = ut_to_gmst(dt)
 
-    print(f"GMST:{gmst}hr")
+    #print(f"GMST:{gmst}hr")
 
     return gmst
 
@@ -79,11 +79,7 @@ def theory_skycoord(ut_time):
     Dec = latitude
     Ra = (time + longitude/15)%24 #hour
 
-    if Ra > 12:
-        Ra -= 24
-        Ra *= 15 #degree
-    else:
-        Ra *= 15 #degree
+    Ra *= 15 #degree
 
     return Ra, Dec
 
@@ -92,7 +88,7 @@ def find_theo_center(n, ut_time, croplength, x_shift, y_shift, img):
     st_ra, st_dec = theory_skycoord(ut_time)
 
     # Open the FITS file with WCS header
-    hdulist = fits.open(f'/home/alex/Startrack/04.2 Wcs/cropped{n+1}.new')  # This should have the WCS solution
+    hdulist = fits.open(f'/home/user/StartrackPC/04.2 Wcs/cropped{n+1}.new')  # This should have the WCS solution
     w = WCS(hdulist[0].header)
 
     cm_x = 0
@@ -126,10 +122,12 @@ def find_theo_center(n, ut_time, croplength, x_shift, y_shift, img):
     vecA = (Ra1 - Ra, Dec1 - Dec)
     vecB = (Ra2 - Ra, Dec2 - Dec)
 
-    print()
+    #print(f"A:{vecA}, B:{vecB}, C:{vecC}")
 
     i = (vecA[0]*vecC[0]+vecA[1]*vecC[1])/(pow(vecA[0], 2)+pow(vecA[1], 2))
     j = (vecB[0]*vecC[0]+vecB[1]*vecC[1])/(pow(vecB[0], 2)+pow(vecB[1], 2))
+
+    #print(f"i:{i}, j:{j}")
 
     print("Theory :")
     print(f"standard:({st_ra}, {st_dec})")
@@ -137,7 +135,7 @@ def find_theo_center(n, ut_time, croplength, x_shift, y_shift, img):
     print(f"center:({cm_x+i+x_shift}, {cm_y+j+y_shift})")
 
     cv2.circle(img, (round(cm_x+i+x_shift), round(cm_y+j+y_shift)), 2, (0, 0, 255), 3)
-    cv2.imwrite(f"/home/alex/Startrack/05 Result/result{n+1}.jpg", img)
+    cv2.imwrite(f"/home/user/StartrackPC/05 Result/result{n+1}.jpg", img)
 
     return cm_x+i+x_shift, cm_y+j+y_shift
 

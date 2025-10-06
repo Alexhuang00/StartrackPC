@@ -1,8 +1,8 @@
 import os, requests
 from bs4 import BeautifulSoup
 
-BASE_URL = "https://www.lulin.ncu.edu.tw/weather/allSkyHistory/2024-12-25"
-DL_DIR = "/home/alex/Startrack/01Image/"
+BASE_URL = "https://www.lulin.ncu.edu.tw/weather/allSkyHistory/2024-09-26"
+DL_DIR = "/home/user/StartrackPC/01Image/"
 SITE_ROOT = "https://www.lulin.ncu.edu.tw/"
 
 os.makedirs(DL_DIR, exist_ok=True)
@@ -42,5 +42,16 @@ def download_image(filename):
 
     return path
 
+def cleanup_downloads():
+    for img in list_remote_images():
+        img_name = os.path.basename(img)
+        path = os.path.join(DL_DIR, img_name)
+        if os.path.exists(path):
+            os.remove(path)
+            print("Deleted", img_name)
+        else:
+            print("Not found:", img_name)
+
 for img in list_remote_images():
     download_image(img)
+
