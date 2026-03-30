@@ -10,6 +10,7 @@ from solving import solve_field
 from Ut_time import find_UT_time
 from Theory import find_theo_center
 from find_earthloc import zenith_to_earth_location
+import errorvector
 
 
 image_paths = glob.glob('/home/user/StartrackPC/01Image/*.jpg')
@@ -34,7 +35,7 @@ croplength = 200
 n=0
 for path in image_paths:
 
-    #if n == 200:
+    #if n == 2:
         #break
         #n+=1
         #continue
@@ -97,3 +98,4 @@ for i in range(len(actual_earthloc)):
 
 earthloc_distrubute(actual_earthloc, lulin_earthloc, correct=False)
 earthloc_distrubute(corrected_earthloc, lulin_earthloc, correct=True)
+

@@ -33,7 +33,7 @@ slope = 0.1
 n=0
 for path,input_path in zip(Corr_paths, image_paths):
 
-    if n <= 121:
+    if n <= 218:
         #break
         n+=1
         continue
@@ -97,7 +97,7 @@ for path,input_path in zip(Corr_paths, image_paths):
             hip_table = result[0]
             x.append(Ra[i] - hip_table["RArad"][0])
             y.append(Dec[i] - hip_table["DErad"][0])
-            m.append(-2.5 * math.log(flux[i], 10) + 7.5)
+            m.append(-2.5 * math.log(abs(flux[i]), 10) + 7.5)
             mHip.append(hip_table["Hpmag"][0])
             xnn.append(x1[i])
             ynn.append(y1[i])

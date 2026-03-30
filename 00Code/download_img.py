@@ -1,7 +1,7 @@
 import os, requests
 from bs4 import BeautifulSoup
 
-BASE_URL = "https://www.lulin.ncu.edu.tw/weather/allSkyHistory/2024-09-26"
+BASE_URL = "https://www.lulin.ncu.edu.tw/weather/allSkyHistory/2025-08-26"
 DL_DIR = "/home/user/StartrackPC/01Image/"
 SITE_ROOT = "https://www.lulin.ncu.edu.tw/"
 
